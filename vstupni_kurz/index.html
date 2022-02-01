@@ -1,0 +1,109 @@
+<meta charset="UTF-8">
+<link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" rel="stylesheet">
+<script crossorigin="anonymous"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script
+        crossorigin="anonymous"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+        src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<div id="msgRow"></div>
+<body>
+<form action="#">
+    <label for="query">Hledané spojení:</label>
+    <input id="query" size="50" name="query" type="text" placeholder="vložte frázi, pro kterou se mají získat výsledky"><br><br>
+    <a href="#" id="sendButton">Zobrazit výsledky</a>
+    <div id="msg">
+</form>
+<div id="downloadDiv">
+    <a href="#" id="downloadButton" style="display:none;">Stáhnout výsledky</a>
+</div >
+<div id="result-panel">
+    <hr/>
+    <h1>Výsledky:</h1>
+    <div id="results">----</div>
+</div>
+</body>
+
+<script type="text/javascript">
+    function error(msg) {
+        let message = `<div class="alert alert-danger">` + msg + `</div>`;
+        $(\'#msgRow\').append(message);
+    }
+
+    function info(msg) {
+        let message = `<div class="alert alert-info">` + msg + `</div>`;
+        $(\'#msgRow\').append(message);
+    }
+
+    function showResults(results) {
+        $(\'#results\').html(\'\');
+        results.forEach(function (result) {
+            $(\'#results\').append(result);
+        });
+        $(\'#downloadButton\').show();
+    }
+
+    function processQuery(query) {
+        let url = "/downloader.php?query=" + query;
+        $.ajax({
+            url: url,
+            context: document.body
+        }).done(function (data) {
+            console.log(\'success: results loaded\');
+            info(\'výsledky získány\');
+
+            var parsedHtml = $.parseHTML(data);
+            var results = [];
+
+            $(parsedHtml).find("h3").parent().parent().each(function (el) {
+                results.push($(this).html());
+            });
+
+            showResults(results);
+
+        }).fail(function () {
+            console.log(\'error: results not obtained\');
+            error(\'výsledky se nepodařilo získat\');
+        });
+    }
+
+
+    function showDownloadButton(query) {
+        $(\'#downloadButton\').show();
+    }
+
+
+    $(\'#sendButton\').on(\'click\', function () {
+            let query = $(\'#query\').val();
+            if (query == "") {
+                error("zadaná fráze nesmí být prázdná, jinak není co stahovat, bohužel");
+                return;
+            }
+            processQuery(query);
+        }
+    );
+
+    function download(filename, text) {
+        let element = document.createElement(\'a\');
+        let linkText = document.createTextNode("<>Click here if not being downloaded yet....<>");
+        element.appendChild(linkText);
+        element.setAttribute(\'href\', \'data:text/plain;charset=utf-8,\' + encodeURIComponent(text));
+        element.setAttribute(\'download\', filename);
+
+        //element.style.display = \'block\';
+        $(\'#downloadDiv\').append(element);
+
+        element.click();
+
+        //$(\'#downloadDiv\').removeChild(element);
+    }
+
+    $(\'#downloadButton\').on(\'click\', function () {
+        console.log(\'downloading...\');
+        info("připravuji soubor ke stažení");
+        download("results.txt", $(\'#results\').html());
+    });
+</script>
+
