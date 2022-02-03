@@ -1,0 +1,13 @@
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script>
+
+    $.ajax({
+    url: "https://www.collabim.cz",
+    context: document.body
+    }).done(function() {
+    console.log('success');
+    }).fail(function(jqXHR, textStatus, errorThrown) {
+    console.log('fail, status:' + textStatus);
+    console.log(jqXHR);
+    });
+</script>

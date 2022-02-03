@@ -1,0 +1,21 @@
+----- HTML ------
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+---- JS -----
+
+$.ajax({
+  url: "https://static.oncollabim.com/google-geo-list/json/CZ",
+  context: document.body
+}).done(function(data) {
+	console.log(data);
+});
+
+$.ajax({
+  url: "https://www.collabim.cz",
+  context: document.body
+}).done(function() {
+	console.log('success');
+}).fail(function(jqXHR, textStatus, errorThrown) {
+  	console.log('fail, status:' + textStatus);
+  	console.log(jqXHR);
+  });

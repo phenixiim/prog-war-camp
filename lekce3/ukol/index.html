@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script>
+        $.ajax({
+            url: "./mesta.json",
+            context: document.body
+        }).done(function(data) {
+            data.municipalities.forEach(
+                function(municipality) {
+                    if(municipality.adresaUradu.kraj == 'Jihočeský') {
+                        $('mesta').append(municipality.hezkyNazev + ' - ' + municipality.datovaSchrankaID + '<br/>');
+                    }
+                }
+            );
+            $('#loading').hide();
+        }).fail(function(jqXHR, textStatus, errorThrown) {
+
+        });
+    </script>
+</head>
+<body>
+<h1 class="text-3xl font-bold underline">
+    Města v JČ kraji:
+</h1>
+<mesta>
+    <div class="flex items-center justify-center" id="loading">
+        <div class="w-16 h-16 border-b-2 border-gray-900 rounded-full animate-spin"></div>
+    </div>
+</mesta>
+</body>
+</html>
+
+
+
