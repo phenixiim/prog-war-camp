@@ -1,10 +1,11 @@
 <?php
 
+
+
 require('function.php');
 
 if(isset($_GET['msg'])) {
-  $vybornePojmenovanaPromenna = $_GET['msg'];
+    $messageFromGetParameterMsg = $_GET['msg'];
 
-  processMessage($vybornePojmenovanaPromenna);
+  processMessage($messageFromGetParameterMsg);
 }
-

@@ -19,15 +19,36 @@ function processOutput(array $messageList): void
 function prepareOutput(string $message): array
 {
     if (strpos($message, SEPARATOR)) {
-        $messageArray = explode(SEPARATOR, $message);
-
-        return $messageArray;
-    } elseif ($message == 'kurzy') {
-        $kurzy = file_get_contents(CNB_EXCHANGE_RATES_URL);
-
-        return explode(PHP_EOL, $kurzy);
-    } else { // REFACTOR: should be pure if/return
-        return [$message];
+        return getArrayFromStringBySeparator($message);
     }
+
+
+    if ($message == 'kurzy') {
+        return getExchangeRatesToArrayFromUrl();
+    }
+
+    return [$message];
+}
+
+function getExchangeRatesToArrayFromUrl(): array
+{
+    $kurzy = file_get_contents(CNB_EXCHANGE_RATES_URL);
+
+    $output = explode(PHP_EOL, $kurzy);
+
+    return $output;
+}
+
+function getArrayFromStringBySeparator(string $message): array
+{
+    $messageArray = explode(SEPARATOR, $message);
+
+    return $messageArray;
+}
+
+function vdx(mixed $output): void
+{
+    var_dump($output);
+    die;
 }
 
