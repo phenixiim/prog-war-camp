@@ -39,7 +39,7 @@ function HTTPJSONPost(string $url, array $params)
 function sendSlackMessage(string $message)
 {
     echo('posilam...'.$message);
-    $url = 'https://hooks.slack.com/services/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';
+    $url = 'https://hooks.slack.com/services/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';
     $data = array('text' => $message);
     HTTPJSONPost($url, $data);
 }
