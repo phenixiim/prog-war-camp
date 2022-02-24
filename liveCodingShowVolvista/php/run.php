@@ -1,5 +1,12 @@
 <?php
 
+
+const ORIGINAL_MD5_CAR_LIST_HASH = '020ded734626c3d77f7487d06ecb998e';
+const URL = 'https://www.volvista.cz/ojete-vozy?carCheck2=BZR&fPrevodovka=&fNahon=59&fKm=&fFuel=&fNovinka=Y&fPobocka=&fYearFrom=1957&fYearTo=2022&fPriceFrom=150000&fPriceTo=2400000&fView=R&fSort=&fOnPage=20&fSortDesc=0&fSetOrder=&fSortDescMobile=&fSetOrderMobile=&fCount=20&fScroll=1&fLeasing=&fResetSearching=1&hlidaniLosem=&filtrace=1&page=ojete-vozy#anchor';
+const LOG_PATH = '/var/log/volvista.check';
+const SLACK_WEBHOOK_URL = 'https://hooks.slack.com/services/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';
+
+
 const FORMAT_CONTENT_LENGTH = 'Content-Length: %d';
 const FORMAT_CONTENT_TYPE = 'Content-Type: %s';
 
@@ -39,14 +46,11 @@ function HTTPJSONPost(string $url, array $params)
 function sendSlackMessage(string $message)
 {
     echo('posilam...'.$message);
-    $url = 'https://hooks.slack.com/services/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';
+    $url = SLACK_WEBHOOK_URL;
     $data = array('text' => $message);
     HTTPJSONPost($url, $data);
 }
 
-const ORIGINAL_MD5_CAR_LIST_HASH = '64e8d45c665f475d3fd74144937bb4b6';
-const URL = 'https://www.volvista.cz/ojete-vozy?carCheck2=BZR&fPrevodovka=&fNahon=59&fKm=&fFuel=&fNovinka=Y&fPobocka=&fYearFrom=1957&fYearTo=2022&fPriceFrom=150000&fPriceTo=2400000&fView=R&fSort=&fOnPage=20&fSortDesc=0&fSetOrder=&fSortDescMobile=&fSetOrderMobile=&fCount=20&fScroll=1&fLeasing=&fResetSearching=1&hlidaniLosem=&filtrace=1&page=ojete-vozy#anchor';
-const LOG_PATH = '/var/log/volvista.check';
 
 $html = file_get_contents(URL);
 
