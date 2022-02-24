@@ -4,7 +4,7 @@ var url = require('url');
 var request = require('request');
 var targetUrl = 'https://www.volvista.cz/ojete-vozy?carCheck2=BZR&fPrevodovka=&fNahon=59&fKm=&fFuel=&fNovinka=Y&fPobocka=&fYearFrom=1957&fYearTo=2022&fPriceFrom=150000&fPriceTo=2400000&fView=R&fSort=&fOnPage=20&fSortDesc=0&fSetOrder=&fSortDescMobile=&fSetOrderMobile=&fCount=20&fScroll=1&fLeasing=&fResetSearching=1&hlidaniLosem=&filtrace=1&page=ojete-vozy#anchor';
 var md5OfTheOriginalCarsListHtml = '020ded734626c3d77f7487d06ecb998e';
-var SLACK_HOOK_URL = 'https://hooks.slack.com/services/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';
+var MESSENGER_WEBHOOK_URL = 'https://hook.integromat.com/198owikj3y90e86xq9mnlxpu2tuno72p';
 
 const timeout = 100;
 
@@ -56,6 +56,8 @@ function performTargetPageCheck(targetUrl, callback) {
                 return;
             }
 
+            sendCheckOk(md5HashOfTargetPageCarsListHtml, carsCount);
+
             console.log('The page has not been changed.');
         });
 
@@ -63,6 +65,12 @@ function performTargetPageCheck(targetUrl, callback) {
     }).setTimeout(timeout);
     req.on('error', onFail);
     req.end();
+}
+
+function sendCheckOk(newHash, carsCount) {
+    console.log('posilam ok zpravu....');
+    let message = 'žádná změna, počet vozů je:' + carsCount;
+    sendSlackMessage(message);
 }
 
 function sendAlert(newHash, carsCount) {
@@ -73,7 +81,7 @@ function sendAlert(newHash, carsCount) {
 
 function sendSlackMessage(message) {
     request.post(
-        SLACK_HOOK_URL,
+        MESSENGER_WEBHOOK_URL,
         {json: {text: message}},
         function (error, response, body) {
             if (!error && response.statusCode == 200) {
