@@ -6,7 +6,7 @@ help: ## list available targets (this page)
 run-sls: ## SLS
 	cd sls_nodejs; sls invoke local --function test
 
-deploy-sls: ## SLS
+deploy-sls: ## SLS DEPLOY
 	cd sls_nodejs; sls deploy
 
 run-php: ## PHP
