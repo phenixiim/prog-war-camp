@@ -45,7 +45,7 @@ function sendSlackMessage(string $message)
 }
 
 const ORIGINAL_MD5_CAR_LIST_HASH = '64e8d45c665f475d3fd74144937bb4b6';
-const URL = 'https://www.volvista.cz/vsechny-vozy?carCheck2=BZR&fPrevodovka=&fNahon=59&fNovinka=Y&fKm=&fFuel=&fPobocka=&fYearFrom=1957&fYearTo=2022&fPriceFrom=150000&fPriceTo=2400000&fView=R&fSort=&fOnPage=20&fSortDesc=0&fSetOrder=&fSortDescMobile=&fSetOrderMobile=&fCount=20&fScroll=1&fLeasing=&fResetSearching=1&hlidaniLosem=&filtrace=1&page=vsechny-vozy#anchor';
+const URL = 'https://www.volvista.cz/ojete-vozy?carCheck2=BZR&fPrevodovka=&fNahon=59&fKm=&fFuel=&fNovinka=Y&fPobocka=&fYearFrom=1957&fYearTo=2022&fPriceFrom=150000&fPriceTo=2400000&fView=R&fSort=&fOnPage=20&fSortDesc=0&fSetOrder=&fSortDescMobile=&fSetOrderMobile=&fCount=20&fScroll=1&fLeasing=&fResetSearching=1&hlidaniLosem=&filtrace=1&page=ojete-vozy#anchor';
 const LOG_PATH = '/var/log/volvista.check';
 
 $html = file_get_contents(URL);
