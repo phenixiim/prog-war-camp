@@ -48,7 +48,9 @@ class Processor
 
         /** @var ExchangeRate $exchangeRate */
         foreach ($exchangeRateList->getExchangeRates() as $exchangeRate) {
-            $output[] = $exchangeRate->getCode().': '.$exchangeRate->getExchangeRateValue();
+            if($exchangeRate->getCode() == 'AUD') {
+                $output[] = $exchangeRate->getCode().': '.$exchangeRate->getExchangeRateValue();
+            }
         }
 
         return $output;
@@ -56,7 +58,7 @@ class Processor
 
     function getArrayFromStringBySeparator(string $message): array
     {
-        $messageArray = explode(SEPARATOR, $message);
+        $messageArray = explode($this::SEPARATOR, $message);
 
         return $messageArray;
     }

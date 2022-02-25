@@ -75,9 +75,9 @@ class ExchangeRate
     /**
      * @return float
      */
-    public function getExchangeRateValue(): float
+    public function getExchangeRateValue(): string
     {
-        return $this->exchangeRateValue;
+        return strtr($this->exchangeRateValue,'.',',');
     }
 
     /**
