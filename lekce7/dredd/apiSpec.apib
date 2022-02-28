@@ -1,0 +1,27 @@
+FORMAT: 1A
+HOST: http://localhost:8082/
+
+# ProgWarCamp
+
+This is example doc file devoted to ProgWarCamp.
+
+## Form processing [/lekce2/frend_back/backend.php]
+
+### Process form [POST]
+
++ Attributes
+    + email: example@example.com (string)
+    + passwd: anyPassword (string)
+    + checkbox1: on (optional, string) - OPTIONAL - missing if OFF
+
++ Request (application/x-www-form-urlencoded)
+
+    email=example%40example.com&passwd=anyPassword&checkbox1=on
+
++ Response 200 (application/json)
+
+        {
+          "email": "example@example.com",
+          "passwd": "anyPassword",
+          "checkbox1": "on"
+        }
