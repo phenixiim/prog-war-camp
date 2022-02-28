@@ -25,4 +25,3 @@ Perform test for lekce3 - neco.html function
     Element Should Be Visible   ${h2Id}
     Element Should Contain  ${h2Id}  ${h2TextAfterReplacing}
     Sleep   2
-    s

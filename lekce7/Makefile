@@ -15,7 +15,7 @@ run-unit-ex-rate-test: ## SLS
 	cd phpunit; vendor/bin/phpunit --filter testParseTxt ./ExchangeRatesParserTest.php
 
 run-robot-example: ## SLS
-	cd robot; robot
+	cd robot; robot example.robot
 
 run-dredd-example: ## SLS
 	cd dredd; dredd
@@ -25,3 +25,7 @@ install-dredd: ## SLS
 
 install-phpunit: ## SLS
 	cd phpunit; composer install
+
+install-robot: ## SLS
+	pip install robotframework
+	pip install robotframework-selenium2library
